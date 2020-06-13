@@ -21,7 +21,7 @@ def main():
     
     # read config from configuration file; config.yaml
     with open("config.yaml", 'r') as ymlfile:
-        app_config = yaml.load(ymlfile)
+        app_config = yaml.load(ymlfile, Loader=yaml.FullLoader)
 
     # Set variables
     repo_path = Path(app_config['git']['repo_path'])
