@@ -32,14 +32,14 @@ def k8s_yaml_exporter():
 
     # Get k8s_client apis
     with open("k8s_client_apis.yaml", 'r') as ymlfile:
-        api_mapping = yaml.load(ymlfile)
+        api_mapping = yaml.load(ymlfile, Loader=yaml.FullLoader)
     api_list_resources = api_mapping['k8s_client_apis']['list_apis']
     api_read_resource = api_mapping['k8s_client_apis']['read_apis']
 
 
     # Get config
     with open("config.yaml", 'r') as ymlfile:
-        app_config = yaml.load(ymlfile)
+        app_config = yaml.load(ymlfile, Loader=yaml.FullLoader)
     # Get list of namespaces and resources_types to backup
     backup_dir = app_config['git']['repo_path']
     namespaces = app_config['kubernetes']['namespaces']
@@ -85,7 +85,7 @@ def k8s_yaml_exporter():
                      continue
                 
                 # deserialize json to python object, prepare fo yaml conversion
-                resource_read = json.loads(read_func.data)
+                resource_read = json.loads(read_func.data, Loader=yaml.FullLoader)
 
                 # Strip the object for some predefined parameters
                 resource_read = k8s_stip_lines(resource_read)
