@@ -85,7 +85,7 @@ def k8s_yaml_exporter():
                      continue
                 
                 # deserialize json to python object, prepare fo yaml conversion
-                resource_read = json.loads(read_func.data, Loader=yaml.FullLoader)
+                resource_read = json.loads(read_func.data)
 
                 # Strip the object for some predefined parameters
                 resource_read = k8s_stip_lines(resource_read)
